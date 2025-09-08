@@ -21,6 +21,8 @@
             --table-odd: #ffffff;
             --text-color: #1a3a4c;
             --footer-color: #275872;
+            --repetida-color: #ff6b6b;
+            --repetida-bg: #ffe6e6;
         }
 
         * {
@@ -136,6 +138,134 @@
             outline: none;
             border-color: #4192be;
             box-shadow: 0 0 0 3px rgba(65, 146, 190, 0.2);
+        }
+
+        /* Seção de Alertas de Conferência */
+        .conferencia-section {
+            background: linear-gradient(135deg, #ffe6e6, #ffcccc);
+            border: 2px solid #ff6b6b;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 16px rgba(255, 107, 107, 0.3);
+            display: none;
+        }
+
+        /* Seção de Progresso da Conferência */
+        .progresso-conferencia {
+            background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+            border: 2px solid #2196f3;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 16px rgba(33, 150, 243, 0.3);
+            display: none;
+        }
+
+        .progresso-title {
+            color: #1565c0;
+            font-size: 1.2rem;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .progresso-barra {
+            width: 100%;
+            height: 20px;
+            background: rgba(255,255,255,0.3);
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 15px 0;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .progresso-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #4caf50, #8bc34a);
+            border-radius: 10px;
+            transition: width 0.3s ease;
+            position: relative;
+        }
+
+        .progresso-fill::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            animation: shine 2s infinite;
+        }
+
+        @keyframes shine {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        .progresso-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .stat-item {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            border: 1px solid #e0e0e0;
+        }
+
+        .stat-number {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #1565c0;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: #666;
+            margin-top: 5px;
+        }
+
+        .progresso-texto {
+            text-align: center;
+            margin: 10px 0;
+            color: #1565c0;
+            font-weight: 600;
+        }
+
+        .conferencia-title {
+            color: #c62828;
+            font-size: 1.2rem;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .alerta-repetida {
+            background: linear-gradient(135deg, #ff6b6b, #ff5252);
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 10px 0;
+            text-align: center;
+            font-weight: bold;
+            box-shadow: 0 4px 12px rgba(255, 107, 107, 0.4);
+            animation: pulse-alert 2s infinite;
+        }
+
+        @keyframes pulse-alert {
+            0% { box-shadow: 0 4px 12px rgba(255, 107, 107, 0.4); }
+            50% { box-shadow: 0 6px 20px rgba(255, 107, 107, 0.7); }
+            100% { box-shadow: 0 4px 12px rgba(255, 107, 107, 0.4); }
         }
 
         .filters-container {
@@ -336,6 +466,43 @@
             background-color: rgba(65, 146, 190, 0.1);
         }
 
+        /* Destaque para linhas com bilhetes repetidos */
+        tr.bilhete-repetido {
+            background-color: var(--repetida-bg) !important;
+            border: 2px solid var(--repetida-color);
+            animation: pulse-row 3s infinite;
+        }
+
+        tr.bilhete-repetido:hover {
+            background-color: #ffdddd !important;
+        }
+
+        @keyframes pulse-row {
+            0% { box-shadow: 0 0 0 0 rgba(255, 107, 107, 0.7); }
+            70% { box-shadow: 0 0 0 8px rgba(255, 107, 107, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 107, 107, 0); }
+        }
+
+        .ajuste-repetido {
+            background-color: var(--repetida-color) !important;
+            color: white !important;
+            font-weight: bold;
+            position: relative;
+        }
+
+        .ajuste-repetido::after {
+            content: "⚠️ JÁ SORTEADO";
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: #c62828;
+            color: white;
+            font-size: 0.6rem;
+            padding: 2px 4px;
+            border-radius: 3px;
+            font-weight: bold;
+        }
+
         .bilhete {
             display: inline-block;
             padding: 6px 12px;
@@ -348,6 +515,18 @@
             font-family: 'Courier New', monospace;
             box-shadow: 0 2px 4px rgba(65, 146, 190, 0.3);
             border: 2px solid var(--secondary-color);
+        }
+
+        .bilhete.repetido {
+            background-color: var(--repetida-color);
+            animation: pulse-bilhete 2s infinite;
+            border-color: #c62828;
+        }
+
+        @keyframes pulse-bilhete {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
         }
 
         .premio-grupo {
@@ -387,6 +566,7 @@
             margin-left: 5px;
             cursor: help;
         }
+
 		.tooltip .tooltiptext {
 			visibility: hidden;
 			width: 250px;
@@ -406,9 +586,9 @@
 			transform: translateX(-50%) translateY(-100%);
 		}
 
-   .tooltip .tooltiptext::after {
+        .tooltip .tooltiptext::after {
             content: "";
-            position: fixed;
+            position: absolute;
             top: 100%;
             left: 50%;
             margin-left: -5px;
@@ -458,6 +638,138 @@
         .page-numbers .button.active {
             background: var(--primary-dark);
             transform: none;
+        }
+
+        /* Estilos da seção de busca de repetições */
+        .busca-repeticoes {
+            background: linear-gradient(135deg, #fff3cd, #ffeaa7);
+            border: 2px solid #ffc107;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 16px rgba(255, 193, 7, 0.3);
+            display: none;
+        }
+
+        .busca-title {
+            color: #856404;
+            font-size: 1.2rem;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .busca-controls {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        .busca-input {
+            flex: 1;
+            min-width: 250px;
+            padding: 12px 15px;
+            border: 2px solid #ffc107;
+            border-radius: 8px;
+            font-size: 1rem;
+            background: white;
+            color: #495057;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .busca-input:focus {
+            outline: none;
+            border-color: #856404;
+            box-shadow: 0 0 0 3px rgba(255, 193, 7, 0.2);
+        }
+
+        .busca-btn {
+            background: #856404;
+            margin: 0;
+        }
+
+        .busca-clear {
+            background: #6c757d;
+            margin: 0;
+        }
+
+        .resultado-busca {
+            background: white;
+            border-radius: 8px;
+            border: 1px solid #ffc107;
+            max-height: 400px;
+            overflow-y: auto;
+            padding: 15px;
+        }
+
+        .resultado-item {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 6px;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-left: 4px solid #ffc107;
+        }
+
+        .resultado-item.repetida {
+            border-left-color: var(--repetida-color);
+            background: var(--repetida-bg);
+        }
+
+        .resultado-header {
+            font-weight: bold;
+            color: #495057;
+            margin-bottom: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .resultado-detalhes {
+            font-size: 0.9rem;
+            color: #6c757d;
+            line-height: 1.6;
+        }
+
+        .bilhete-busca {
+            display: inline-block;
+            padding: 2px 6px;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 4px;
+            margin: 2px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            font-family: 'Courier New', monospace;
+        }
+
+        .bilhete-busca.repetido {
+            background-color: var(--repetida-color);
+        }
+
+        .sem-resultados {
+            text-align: center;
+            color: #6c757d;
+            font-style: italic;
+            padding: 30px;
+        }
+
+        /* Estilo para destacar linha encontrada na busca */
+        .linha-destacada {
+            background-color: #fff3cd !important;
+            border: 3px solid #ffc107 !important;
+            animation: destacar-linha 2s ease-in-out 3;
+        }
+
+        @keyframes destacar-linha {
+            0% { background-color: #fff3cd; }
+            50% { background-color: #ffeaa7; }
+            100% { background-color: #fff3cd; }
         }
 
         /* Responsividade */
@@ -758,10 +1070,76 @@
             <button class="button" onclick="presetSequencial()">
                 <i class="fas fa-sort-numeric-up"></i> Preset Sequencial
             </button>
+            <button class="button" onclick="conferirBilhetes()" id="btnConferir" style="background: #e74c3c;">
+                <i class="fas fa-search"></i> Conferir Repetições
+            </button>
         </div>
         
         <div style="text-align: center; margin-top: 10px; font-size: 0.8rem; color: var(--primary-dark);">
-            🎫 Os dígitos sempre ficarão entre 0 e 9 (limites da Federal) | 🎯 Configurações aplicadas em tempo real | 🏆 5 bilhetes por sorteio
+            🎫 Os dígitos sempre ficarão entre 0 e 9 (limites da Federal) | 🎯 Configurações aplicadas em tempo real | 🏆 5 bilhetes por sorteio | ⚠️ Conferência detecta bilhetes repetidos
+        </div>
+    </div>
+
+    <!-- Seção de Progresso da Conferência -->
+    <div class="progresso-conferencia" id="progressoConferencia">
+        <div class="progresso-title">
+            <i class="fas fa-search"></i> Conferência de Repetições em Andamento
+        </div>
+        
+        <div class="progresso-texto" id="progressoTexto">
+            Preparando análise...
+        </div>
+        
+        <div class="progresso-barra">
+            <div class="progresso-fill" id="progressoFill" style="width: 0%"></div>
+        </div>
+        
+        <div class="progresso-stats">
+            <div class="stat-item">
+                <div class="stat-number" id="statProcessados">0</div>
+                <div class="stat-label">Concursos Analisados</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number" id="statBilhetes">0</div>
+                <div class="stat-label">Bilhetes Verificados</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number" id="statRepetidos">0</div>
+                <div class="stat-label">Repetições Encontradas</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number" id="statTempo">0s</div>
+                <div class="stat-label">Tempo Decorrido</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Seção de Alertas de Conferência -->
+    <div class="conferencia-section" id="conferenciaSection">
+        <div class="conferencia-title">
+            <i class="fas fa-exclamation-triangle"></i> Conferência de Bilhetes Repetidos
+        </div>
+        <div id="alertasRepetidos">
+            <!-- Alertas serão inseridos aqui -->
+        </div>
+    </div>
+
+    <!-- Campo de Busca para Repetições -->
+    <div class="busca-repeticoes" id="buscaRepeticoes" style="display: none;">
+        <div class="busca-title">
+            <i class="fas fa-search"></i> Buscar Bilhetes Repetidos
+        </div>
+        <div class="busca-controls">
+            <input type="text" id="campoBusca" placeholder="Digite o número do concurso ou um bilhete (ex: 5988, 012244)" class="busca-input">
+            <button class="button busca-btn" onclick="buscarRepeticoes()">
+                <i class="fas fa-search"></i> Buscar
+            </button>
+            <button class="button busca-clear" onclick="limparBusca()">
+                <i class="fas fa-times"></i> Limpar
+            </button>
+        </div>
+        <div id="resultadoBusca" class="resultado-busca">
+            <!-- Resultados da busca serão inseridos aqui -->
         </div>
     </div>
 
@@ -893,7 +1271,59 @@
                             <li>Interface totalmente personalizável</li>
                             <li>Presets prontos para facilitar o uso</li>
                             <li><strong>5 bilhetes</strong> com 6 dígitos cada (0-9)</li>
+                            <li><strong>🎯 CONFERÊNCIA INTELIGENTE</strong> detecta bilhetes repetidos</li>
                         </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- NOVA SEÇÃO: CONFERÊNCIA INTELIGENTE -->
+            <div class="help-section">
+                <h3><i class="fas fa-search"></i> CONFERÊNCIA INTELIGENTE DE REPETIÇÕES:</h3>
+                
+                <div style="background: linear-gradient(135deg, #ffe6e6, #ffcccc); padding: 20px; border-radius: 10px; border: 2px solid #ff6b6b; margin: 15px 0;">
+                    <h4 style="color: #c62828; margin-bottom: 15px;"><i class="fas fa-exclamation-triangle"></i> FUNCIONALIDADE PRINCIPAL:</h4>
+                    
+                    <div class="help-steps">
+                        <div class="help-step">
+                            <div class="help-step-number">1</div>
+                            <div class="help-step-content">
+                                <h4>ANÁLISE AUTOMÁTICA DOS 5 BILHETES:</h4>
+                                <p>O sistema pega CADA bilhete ajustado (todos os 5 bilhetes) e compara com TODOS os resultados históricos da Federal</p>
+                            </div>
+                        </div>
+                        
+                        <div class="help-step">
+                            <div class="help-step-number">2</div>
+                            <div class="help-step-content">
+                                <h4>DETECÇÃO ESPECÍFICA DA FEDERAL:</h4>
+                                <p>Verifica se um bilhete de <strong>6 dígitos</strong> já foi sorteado em QUALQUER concurso histórico</p>
+                            </div>
+                        </div>
+                        
+                        <div class="help-step">
+                            <div class="help-step-number">3</div>
+                            <div class="help-step-content">
+                                <h4>ALERTA VISUAL DE BILHETES:</h4>
+                                <p>Destaca em <span style="background: #ff6b6b; color: white; padding: 2px 6px; border-radius: 4px;">VERMELHO</span> + mostra em qual concurso foi encontrado</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="margin-top: 20px; padding: 15px; background: rgba(255,255,255,0.3); border-radius: 8px;">
+                        <h4 style="color: #c62828; margin-bottom: 10px;"><i class="fas fa-lightbulb"></i> FEDERAL - PARTICULARIDADES:</h4>
+                        <ul style="color: #8b0000;">
+                            <li><strong>Verificação de bilhetes:</strong> Cada ajuste é comparado com os 5 bilhetes de TODOS os concursos</li>
+                            <li><strong>Base histórica:</strong> Desde 1962 - maior base histórica de loterias</li>
+                            <li><strong>Dígitos 0-9:</strong> Encontra repetições em sequências de 6 dígitos</li>
+                            <li><strong>Economia garantida:</strong> Evita apostar em bilhetes já sorteados</li>
+                        </ul>
+                    </div>
+
+                    <div style="margin-top: 15px; text-align: center;">
+                        <strong style="color: #c62828; font-size: 1.1rem;">
+                            🎯 CLIQUE EM "CONFERIR REPETIÇÕES" PARA ATIVAR A ANÁLISE DE BILHETES
+                        </strong>
                     </div>
                 </div>
             </div>
@@ -923,8 +1353,8 @@
                                         <li>Escolha valores de <strong>-10 até +10</strong></li>
                                         <li>Exemplos:</li>
                                         <ul>
-                                            <li><span class="help-highlight">+1</span> = soma 1 em cada dígito</li>
-                                            <li><span class="help-highlight">-2</span> = subtrai 2 de cada dígito</li>
+                                            <li><span class="help-highlight">+1</span> = soma 1 em cada dígito dos 5 bilhetes</li>
+                                            <li><span class="help-highlight">-2</span> = subtrai 2 de cada dígito dos 5 bilhetes</li>
                                             <li><span class="help-highlight">0</span> = mantém os dígitos originais</li>
                                         </ul>
                                     </ul>
@@ -950,6 +1380,10 @@
                                     <strong><i class="fas fa-sort-numeric-up"></i> Preset Sequencial:</strong>
                                     <span>Aplica: +1, +2, +3, +4, +5, +6</span>
                                 </div>
+                                <div class="help-preset">
+                                    <strong><i class="fas fa-search"></i> Conferir Repetições:</strong>
+                                    <span style="color: #c62828; font-weight: bold;">Verifica se algum bilhete ajustado já foi sorteado</span>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -961,7 +1395,8 @@
                             <ul>
                                 <li>O carregamento acontece <strong>automaticamente</strong></li>
                                 <li>A aplicação busca TODOS os concursos da API da Caixa</li>
-                                <li>Aplica seus ajustes personalizados automaticamente</li>
+                                <li>Aplica seus ajustes personalizados nos 5 bilhetes</li>
+                                <li><strong>🔍 Use "Conferir Repetições" após carregar</strong></li>
                             </ul>
                         </div>
                     </div>
@@ -989,6 +1424,24 @@
                             </div>
                         </div>
                     </div>
+                    
+                    <div class="help-example">
+                        <h4><i class="fas fa-exclamation-triangle"></i> Exemplo - Repetição Detectada na Federal:</h4>
+                        <div class="help-example-content">
+                            <div class="help-config">
+                                <strong>Situação:</strong> Após aplicar ajuste +3 no 1º bilhete<br>
+                                <strong>Resultado:</strong> 345677
+                            </div>
+                            <div class="help-result">
+                                <div style="background: #ffe6e6; padding: 10px; border-radius: 6px; border: 2px solid #ff6b6b;">
+                                    <strong style="color: #c62828;">⚠️ ALERTA FEDERAL:</strong> Este bilhete <span style="background: #ff6b6b; color: white; padding: 2px 6px; border-radius: 3px;">345677</span> já foi sorteado no <strong>3º Prêmio do Concurso 4521</strong>
+                                </div>
+                                <div class="help-note" style="color: #c62828; font-weight: bold;">
+                                    ⚠️ EVITE apostar neste bilhete - probabilidade de repetição é quase zero!
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             
@@ -1004,6 +1457,7 @@
                             <li><strong>Bilhetes:</strong> 5 bilhetes por sorteio</li>
                             <li><strong>Dígitos:</strong> 6 dígitos por bilhete</li>
                             <li><strong>Frequência:</strong> Quarta e sábado (2x por semana)</li>
+                            <li><strong>Conferência:</strong> Verifica todos os 5 bilhetes</li>
                         </ul>
                     </div>
                     
@@ -1016,6 +1470,7 @@
                             <li>✅ Interface responsiva para mobile</li>
                             <li>✅ Paginação inteligente (25 por página)</li>
                             <li>✅ Histórico completo desde setembro de 1962</li>
+                            <li>✅ <strong>Conferência automática de bilhetes repetidos</strong></li>
                         </ul>
                     </div>
                 </div>
@@ -1029,11 +1484,13 @@
                     <div class="help-flow-arrow">⬇️</div>
                     <div class="help-flow-step">2. <strong>Aguarde</strong> o carregamento automático</div>
                     <div class="help-flow-arrow">⬇️</div>
-                    <div class="help-flow-step">3. <strong>Analise</strong> os 5 bilhetes na tabela</div>
+                    <div class="help-flow-step">3. <strong>Clique</strong> em "Conferir Repetições" 🔍</div>
                     <div class="help-flow-arrow">⬇️</div>
-                    <div class="help-flow-step">4. <strong>Ajuste</strong> as configurações se necessário</div>
+                    <div class="help-flow-step">4. <strong>Analise</strong> os alertas nos 5 bilhetes</div>
                     <div class="help-flow-arrow">⬇️</div>
-                    <div class="help-flow-step">5. <strong>Baixe</strong> os dados no formato desejado</div>
+                    <div class="help-flow-step">5. <strong>Ajuste</strong> as configurações se houver repetições</div>
+                    <div class="help-flow-arrow">⬇️</div>
+                    <div class="help-flow-step">6. <strong>Baixe</strong> os dados no formato desejado</div>
                 </div>
             </div>
         </div>
@@ -1431,8 +1888,13 @@ const RESULTS_PER_PAGE = 25;
 let totalPages = 0;
 let isLoading = false;
 let cancelarCarregamento = false;
+let bilhetesRepetidos = new Map();
 
-// Configurações das APIs - PRIORIZANDO API DA CAIXA
+// Cache otimizado para conferência
+let cacheConferencia = new Map();
+let cacheOriginais = new Map();
+
+// Configurações das APIs
 const API_CONFIG = {
     CAIXA_URL: 'https://servicebus2.caixa.gov.br/portaldeloterias/api/federal',
     CORS_PROXY_URLS: [
@@ -1459,6 +1921,524 @@ const CONFIG_SORTEIOS = {
 };
 
 const CACHE_CONCURSOS = new Map();
+
+// =================== FUNÇÕES DE CONFERÊNCIA INTELIGENTE ===================
+
+async function conferirBilhetes() {
+    if (allResults.length === 0) {
+        showNotification('❌ Carregue os resultados primeiro!', 'error');
+        return;
+    }
+
+    console.log('🔍 Iniciando conferência inteligente de bilhetes repetidos da Federal...');
+    
+    // Iniciar feedback em tempo real
+    iniciarProgressoConferencia();
+    
+    const quantidade = parseInt(document.getElementById('quantidadeAjustes').value);
+    let totalBilhetes = 0;
+    let bilhetesRepetidos = 0;
+    let concursosProcessados = 0;
+    
+    const startTime = Date.now();
+
+    console.log(`📊 INICIANDO CONFERÊNCIA DETALHADA DA FEDERAL:`);
+    console.log(`   - Total de resultados: ${allResults.length}`);
+    console.log(`   - Quantidade de ajustes: ${quantidade}`);
+    console.log(`   - Bilhetes esperados: ${allResults.length * quantidade * 5} (5 bilhetes por ajuste)`);
+
+    try {
+        // Criar cache otimizado se não existir
+        if (cacheOriginais.size === 0) {
+            atualizarProgresso('📋 Criando cache otimizado de bilhetes...', 5, 0, 0, 0, startTime);
+            
+            console.log('🔨 CONSTRUINDO CACHE DE BILHETES ORIGINAIS DA FEDERAL:');
+            allResults.forEach((result, index) => {
+                // Criar chaves únicas para cada um dos 5 bilhetes
+                result.bilhetes.forEach((bilhete, bilheteIndex) => {
+                    const key = bilhete;
+                    cacheOriginais.set(key, {
+                        concurso: result.concurso,
+                        data: result.data,
+                        bilhete: bilheteIndex + 1,
+                        premio: ['1º', '2º', '3º', '4º', '5º'][bilheteIndex]
+                    });
+                });
+                
+                // Log dos primeiros 3 concursos para verificação
+                if (index < 3) {
+                    console.log(`   Cache[${index}]: Concurso ${result.concurso}`);
+                    console.log(`      Bilhetes: ${result.bilhetes.join(', ')}`);
+                }
+            });
+            
+            console.log(`💾 Cache criado com ${cacheOriginais.size} bilhetes únicos (5 bilhetes por concurso)`);
+        }
+
+        atualizarProgresso('🔍 Iniciando análise de repetições...', 10, 0, 0, 0, startTime);
+
+        // Processar em lotes para melhor performance
+        const LOTE_SIZE = 50;
+        const totalLotes = Math.ceil(allResults.length / LOTE_SIZE);
+
+        for (let lote = 0; lote < totalLotes; lote++) {
+            const inicioLote = lote * LOTE_SIZE;
+            const fimLote = Math.min(inicioLote + LOTE_SIZE, allResults.length);
+            
+            // Atualizar progresso do lote
+            const progressoLote = 10 + ((lote / totalLotes) * 80);
+            atualizarProgresso(
+                `🔄 Analisando lote ${lote + 1}/${totalLotes} (concursos ${inicioLote + 1}-${fimLote})...`,
+                progressoLote,
+                concursosProcessados,
+                totalBilhetes,
+                bilhetesRepetidos,
+                startTime
+            );
+
+            // Processar lote atual
+            for (let i = inicioLote; i < fimLote; i++) {
+                const result = allResults[i];
+                
+                // Limpar dados anteriores
+                result.temRepeticao = false;
+                result.ajustesRepetidos = {};
+
+                // Verificar cada ajuste nos 5 bilhetes
+                for (let j = 1; j <= quantidade; j++) {
+                    const ajuste = result[`ajuste${j}`];
+                    
+                    if (ajuste && ajuste.length === 5) {
+                        totalBilhetes += 5; // Contamos os 5 bilhetes
+                        
+                        // Verificar cada um dos 5 bilhetes ajustados
+                        ajuste.forEach((bilheteAjustado, bilheteIndex) => {
+                            if (cacheOriginais.has(bilheteAjustado)) {
+                                const bilheteOriginal = cacheOriginais.get(bilheteAjustado);
+                                
+                                // Não considerar repetição se for o mesmo concurso/bilhete
+                                if (!(bilheteOriginal.concurso === result.concurso && (bilheteIndex + 1) === bilheteOriginal.bilhete)) {
+                                    bilhetesRepetidos++;
+                                    result.temRepeticao = true;
+                                    
+                                    if (!result.ajustesRepetidos[`ajuste${j}`]) {
+                                        result.ajustesRepetidos[`ajuste${j}`] = [];
+                                    }
+                                    
+                                    result.ajustesRepetidos[`ajuste${j}`].push({
+                                        bilhete: bilheteAjustado,
+                                        posicao: bilheteIndex + 1,
+                                        premio: ['1º', '2º', '3º', '4º', '5º'][bilheteIndex],
+                                        concursoOriginal: bilheteOriginal.concurso,
+                                        dataOriginal: bilheteOriginal.data,
+                                        premioOriginal: bilheteOriginal.premio
+                                    });
+
+                                    console.log(`⚠️ REPETIÇÃO FEDERAL: ${['1º', '2º', '3º', '4º', '5º'][bilheteIndex]} bilhete ajuste ${j} do concurso ${result.concurso} (${bilheteAjustado}) = ${bilheteOriginal.premio} Prêmio do concurso ${bilheteOriginal.concurso}`);
+                                }
+                            }
+                        });
+                    }
+                }
+                
+                concursosProcessados++;
+            }
+
+            // Pequena pausa para não travar a UI
+            await new Promise(resolve => setTimeout(resolve, 10));
+        }
+
+        console.log(`📊 ESTATÍSTICAS FINAIS DA CONFERÊNCIA FEDERAL:`);
+        console.log(`   - Concursos processados: ${concursosProcessados}`);
+        console.log(`   - Total de bilhetes verificados: ${totalBilhetes}`);
+        console.log(`   - Repetições encontradas: ${bilhetesRepetidos}`);
+        console.log(`   - Taxa de repetição: ${(bilhetesRepetidos / totalBilhetes * 100).toFixed(2)}%`);
+
+        // Finalizar progresso
+        atualizarProgresso(
+            '✅ Análise concluída! Exibindo resultados...',
+            95,
+            concursosProcessados,
+            totalBilhetes,
+            bilhetesRepetidos,
+            startTime
+        );
+
+        // Pequena pausa antes de mostrar resultados
+        await new Promise(resolve => setTimeout(resolve, 500));
+
+        // Finalizar e exibir resultados
+        finalizarProgressoConferencia();
+        exibirResultadosConferencia(totalBilhetes, bilhetesRepetidos);
+        renderCurrentPage();
+
+        console.log(`✅ Conferência Federal concluída: ${bilhetesRepetidos} repetições em ${totalBilhetes} bilhetes`);
+        
+    } catch (error) {
+        console.error('Erro durante conferência:', error);
+        finalizarProgressoConferencia();
+        showNotification('❌ Erro durante a conferência!', 'error');
+    }
+}
+
+function iniciarProgressoConferencia() {
+    // Esconder seção de alertas anterior
+    const conferenciaSection = document.getElementById('conferenciaSection');
+    conferenciaSection.style.display = 'none';
+    
+    // Mostrar seção de progresso
+    const progressoSection = document.getElementById('progressoConferencia');
+    progressoSection.style.display = 'block';
+    
+    // Resetar progresso
+    document.getElementById('progressoFill').style.width = '0%';
+    document.getElementById('statProcessados').textContent = '0';
+    document.getElementById('statBilhetes').textContent = '0';
+    document.getElementById('statRepetidos').textContent = '0';
+    document.getElementById('statTempo').textContent = '0s';
+    
+    // Desabilitar botão
+    const btnConferir = document.getElementById('btnConferir');
+    btnConferir.disabled = true;
+    btnConferir.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Analisando...';
+    
+    // Scroll para o progresso
+    progressoSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function atualizarProgresso(texto, percentual, processados, bilhetes, repetidos, startTime) {
+    const tempoDecorrido = Math.floor((Date.now() - startTime) / 1000);
+    
+    // Atualizar texto
+    document.getElementById('progressoTexto').textContent = texto;
+    
+    // Atualizar barra de progresso
+    document.getElementById('progressoFill').style.width = `${percentual}%`;
+    
+    // Atualizar estatísticas
+    document.getElementById('statProcessados').textContent = processados.toLocaleString();
+    document.getElementById('statBilhetes').textContent = bilhetes.toLocaleString();
+    document.getElementById('statRepetidos').textContent = repetidos.toLocaleString();
+    document.getElementById('statTempo').textContent = `${tempoDecorrido}s`;
+}
+
+function finalizarProgressoConferencia() {
+    // Completar barra de progresso
+    document.getElementById('progressoFill').style.width = '100%';
+    document.getElementById('progressoTexto').textContent = '✅ Conferência concluída!';
+    
+    // Restaurar botão
+    const btnConferir = document.getElementById('btnConferir');
+    btnConferir.disabled = false;
+    btnConferir.innerHTML = '<i class="fas fa-search"></i> Conferir Repetições';
+    
+    // Esconder progresso após 2 segundos
+    setTimeout(() => {
+        const progressoSection = document.getElementById('progressoConferencia');
+        progressoSection.style.display = 'none';
+    }, 2000);
+}
+
+function exibirResultadosConferencia(totalBilhetes, quantidadeRepetidos) {
+    const conferenciaSection = document.getElementById('conferenciaSection');
+    const alertasContainer = document.getElementById('alertasRepetidos');
+
+    if (quantidadeRepetidos === 0) {
+        // Nenhuma repetição encontrada
+        alertasContainer.innerHTML = `
+            <div style="background: linear-gradient(135deg, #22c55e, #16a34a); color: white; padding: 20px; border-radius: 10px; text-align: center; font-weight: bold;">
+                <i class="fas fa-check-circle" style="font-size: 2rem; margin-bottom: 10px; display: block;"></i>
+                <h3>🎉 EXCELENTE! NENHUMA REPETIÇÃO ENCONTRADA!</h3>
+                <p style="margin: 10px 0;">Analisamos <strong>${totalBilhetes.toLocaleString()}</strong> bilhetes ajustados da Federal (incluindo todos os 5 bilhetes) e nenhum deles já foi sorteado antes.</p>
+                <p style="font-size: 0.9rem; opacity: 0.9;">✅ Todas as suas configurações de ajustes estão seguras para apostas!</p>
+                
+                <div style="background: rgba(255,255,255,0.2); margin-top: 15px; padding: 15px; border-radius: 8px; font-size: 0.85rem;">
+                    <h4 style="margin-bottom: 10px;"><i class="fas fa-clipboard-check"></i> VERIFICAÇÃO FEDERAL CONFIRMADA:</h4>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; text-align: left;">
+                        <div>✅ Cache de ${allResults.length * 5} bilhetes originais</div>
+                        <div>✅ ${totalBilhetes.toLocaleString()} bilhetes verificados</div>
+                        <div>✅ 6 dígitos por bilhete (Federal)</div>
+                        <div>✅ Conferência nos 5 bilhetes</div>
+                    </div>
+                    <div style="margin-top: 10px; text-align: center; font-weight: bold;">
+                        📊 Taxa de repetição: ${(quantidadeRepetidos / totalBilhetes * 100).toFixed(3)}%
+                    </div>
+                </div>
+            </div>
+        `;
+        conferenciaSection.style.display = 'block';
+        showNotification('🎉 Conferência concluída: ZERO repetições!', 'success');
+    } else {
+        // Repetições encontradas - mostrar campo de busca
+        document.getElementById('buscaRepeticoes').style.display = 'block';
+        
+        let alertasHtml = `
+            <div class="alerta-repetida">
+                <i class="fas fa-exclamation-triangle" style="font-size: 1.5rem; margin-bottom: 10px; display: block;"></i>
+                <h3>⚠️ ${quantidadeRepetidos} REPETIÇÕES DETECTADAS!</h3>
+                <p>De ${totalBilhetes.toLocaleString()} bilhetes analisados da Federal (incluindo todos os 5 bilhetes), encontramos ${quantidadeRepetidos} que já foram sorteados antes.</p>
+                <p style="font-size: 0.9rem; margin-top: 10px;"><strong>Recomendação:</strong> Evite apostar nos bilhetes destacados em vermelho na tabela.</p>
+                <p style="font-size: 0.9rem; margin-top: 10px; background: rgba(255,255,255,0.2); padding: 10px; border-radius: 6px;">
+                    <i class="fas fa-search"></i> <strong>Use o campo de busca abaixo para localizar rapidamente os bilhetes repetidos na tabela!</strong>
+                </p>
+            </div>
+        `;
+
+        // Listar as repetições encontradas
+        const repeticoesDetalhadas = [];
+        allResults.forEach(result => {
+            if (result.temRepeticao) {
+                Object.keys(result.ajustesRepetidos).forEach(ajusteKey => {
+                    const infos = result.ajustesRepetidos[ajusteKey];
+                    infos.forEach(info => {
+                        repeticoesDetalhadas.push({
+                            concursoAtual: result.concurso,
+                            dataAtual: result.data,
+                            ajuste: ajusteKey,
+                            bilhete: info.bilhete,
+                            posicao: info.posicao,
+                            premio: info.premio,
+                            concursoOriginal: info.concursoOriginal,
+                            dataOriginal: info.dataOriginal,
+                            premioOriginal: info.premioOriginal
+                        });
+                    });
+                });
+            }
+        });
+
+        if (repeticoesDetalhadas.length > 0) {
+            alertasHtml += `
+                <div style="background: white; margin-top: 15px; padding: 15px; border-radius: 8px; color: #2d0612;">
+                    <h4 style="color: #c62828; margin-bottom: 15px;"><i class="fas fa-list"></i> Detalhes das Repetições:</h4>
+                    <div style="max-height: 200px; overflow-y: auto;">
+            `;
+
+            repeticoesDetalhadas.slice(0, 10).forEach((rep, index) => {
+                const ajusteNum = rep.ajuste.replace('ajuste', '');
+                const select = document.getElementById(`ajuste${ajusteNum}`);
+                const valorAjuste = select ? select.value : '?';
+                const simbolo = parseInt(valorAjuste) >= 0 ? '+' : '';
+
+                alertasHtml += `
+                    <div style="padding: 10px; margin: 5px 0; background: #ffe6e6; border-left: 4px solid #c62828; border-radius: 4px;">
+                        <strong>Concurso ${rep.concursoAtual}</strong> - ${rep.premio} Prêmio Ajuste ${simbolo}${valorAjuste}: 
+                        <span style="background: #c62828; color: white; padding: 2px 6px; border-radius: 3px; font-size: 0.8rem; font-family: 'Courier New', monospace;">${rep.bilhete}</span>
+                        <br><small>Já sorteado no ${rep.premioOriginal} Prêmio do Concurso ${rep.concursoOriginal} (${rep.dataOriginal})</small>
+                    </div>
+                `;
+            });
+
+            if (repeticoesDetalhadas.length > 10) {
+                alertasHtml += `
+                    <div style="text-align: center; margin-top: 10px; font-style: italic; color: #666;">
+                        ... e mais ${repeticoesDetalhadas.length - 10} repetições. Veja a tabela abaixo para detalhes completos.
+                    </div>
+                `;
+            }
+
+            alertasHtml += `</div></div>`;
+        }
+
+        alertasContainer.innerHTML = alertasHtml;
+        conferenciaSection.style.display = 'block';
+        showNotification(`⚠️ ${quantidadeRepetidos} repetições encontradas!`, 'error');
+    }
+
+    // Scroll suave até a seção de conferência
+    conferenciaSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+// =================== FUNÇÕES DE BUSCA DE REPETIÇÕES ===================
+
+function buscarRepeticoes() {
+    const termoBusca = document.getElementById('campoBusca').value.trim();
+    const resultadoContainer = document.getElementById('resultadoBusca');
+    
+    if (!termoBusca) {
+        resultadoContainer.innerHTML = '<div class="sem-resultados">Digite um termo para buscar.</div>';
+        return;
+    }
+    
+    console.log(`🔍 Buscando repetições com termo: "${termoBusca}"`);
+    
+    // Buscar em todas as repetições encontradas
+    const resultadosEncontrados = [];
+    
+    allResults.forEach(result => {
+        if (result.temRepeticao) {
+            // Verificar se o termo bate com o número do concurso
+            if (result.concurso.toString().includes(termoBusca)) {
+                resultadosEncontrados.push({
+                    tipo: 'concurso',
+                    result: result,
+                    match: `Concurso ${result.concurso}`
+                });
+            }
+            
+            // Verificar cada ajuste repetido
+            Object.keys(result.ajustesRepetidos).forEach(ajusteKey => {
+                const infos = result.ajustesRepetidos[ajusteKey];
+                
+                infos.forEach(info => {
+                    // Verificar se o termo bate com o bilhete repetido
+                    if (info.bilhete.includes(termoBusca)) {
+                        resultadosEncontrados.push({
+                            tipo: 'bilhete',
+                            result: result,
+                            ajuste: ajusteKey,
+                            info: info,
+                            match: `Bilhete ${termoBusca} encontrado`
+                        });
+                    }
+                    
+                    // Verificar se o termo bate com o concurso original
+                    if (info.concursoOriginal.toString().includes(termoBusca)) {
+                        resultadosEncontrados.push({
+                            tipo: 'concurso_original',
+                            result: result,
+                            ajuste: ajusteKey,
+                            info: info,
+                            match: `Concurso original ${info.concursoOriginal}`
+                        });
+                    }
+                });
+            });
+        }
+    });
+    
+    exibirResultadosBusca(resultadosEncontrados, termoBusca);
+}
+
+function exibirResultadosBusca(resultados, termoBusca) {
+    const resultadoContainer = document.getElementById('resultadoBusca');
+    
+    if (resultados.length === 0) {
+        resultadoContainer.innerHTML = `
+            <div class="sem-resultados">
+                Nenhuma repetição encontrada para "${termoBusca}".
+                <br><small>Tente buscar por: número do concurso (ex: 5988) ou bilhete (ex: 012244)</small>
+            </div>
+        `;
+        return;
+    }
+    
+    let html = `
+        <div style="margin-bottom: 15px; font-weight: bold; color: #495057;">
+            📋 ${resultados.length} resultado(s) encontrado(s) para "${termoBusca}":
+        </div>
+    `;
+    
+    // Agrupar resultados únicos para evitar duplicatas
+    const resultadosUnicos = new Map();
+    
+    resultados.forEach(item => {
+        const chave = `${item.result.concurso}-${item.ajuste || 'geral'}-${item.info?.bilhete || 'todos'}`;
+        if (!resultadosUnicos.has(chave)) {
+            resultadosUnicos.set(chave, item);
+        }
+    });
+    
+    Array.from(resultadosUnicos.values()).forEach(item => {
+        if (item.tipo === 'concurso') {
+            html += `
+                <div class="resultado-item repetida">
+                    <div class="resultado-header">
+                        <span>🎯 Concurso ${item.result.concurso} (${item.result.data})</span>
+                    </div>
+                    <div class="resultado-detalhes">
+                        <strong>Bilhetes Originais:</strong> ${item.result.bilhetes.map(b => `<span class="bilhete-busca">${b}</span>`).join(' ')}<br>
+                        <strong>Repetições encontradas:</strong> ${Object.keys(item.result.ajustesRepetidos).length} ajuste(s)
+                        <br><small>Clique em "Ir para linha" para localizar na tabela</small>
+                        <br><button class="button" style="margin-top: 5px; padding: 5px 10px; font-size: 0.8rem;" onclick="irParaLinha(${item.result.concurso})">
+                            <i class="fas fa-arrow-right"></i> Ir para linha
+                        </button>
+                    </div>
+                </div>
+            `;
+        } else if (item.info) {
+            const ajusteNum = item.ajuste.replace('ajuste', '');
+            const select = document.getElementById(`ajuste${ajusteNum}`);
+            const valorAjuste = select ? select.value : '?';
+            const simbolo = parseInt(valorAjuste) >= 0 ? '+' : '';
+
+            html += `
+                <div class="resultado-item repetida">
+                    <div class="resultado-header">
+                        <span>⚠️ Concurso ${item.result.concurso} - ${item.info.premio} Prêmio Ajuste ${simbolo}${valorAjuste}</span>
+                    </div>
+                    <div class="resultado-detalhes">
+                        <strong>Bilhete Repetido:</strong> <span class="bilhete-busca repetido">${item.info.bilhete}</span><br>
+                        <strong>Já sorteado no:</strong> ${item.info.premioOriginal} Prêmio do Concurso ${item.info.concursoOriginal} (${item.info.dataOriginal})
+                        <br><small>Este bilhete é idêntico a um resultado já sorteado</small>
+                        <br><button class="button" style="margin-top: 5px; padding: 5px 10px; font-size: 0.8rem;" onclick="irParaLinha(${item.result.concurso})">
+                            <i class="fas fa-arrow-right"></i> Ir para linha
+                        </button>
+                    </div>
+                </div>
+            `;
+        }
+    });
+    
+    resultadoContainer.innerHTML = html;
+}
+
+function limparBusca() {
+    document.getElementById('campoBusca').value = '';
+    document.getElementById('resultadoBusca').innerHTML = '<div class="sem-resultados">Digite um termo para buscar bilhetes repetidos.</div>';
+}
+
+function irParaLinha(numeroConcurso) {
+    // Encontrar em qual página está o concurso
+    const indiceConcurso = allResults.findIndex(result => parseInt(result.concurso) === parseInt(numeroConcurso));
+    
+    if (indiceConcurso === -1) {
+        showNotification('❌ Concurso não encontrado na tabela', 'error');
+        return;
+    }
+    
+    // Calcular a página
+    const paginaDestino = Math.ceil((indiceConcurso + 1) / RESULTS_PER_PAGE);
+    
+    // Ir para a página
+    if (paginaDestino !== currentPage) {
+        goToPage(paginaDestino);
+    }
+    
+    // Destacar a linha após um pequeno delay
+    setTimeout(() => {
+        destacarLinhaConcurso(numeroConcurso);
+    }, 500);
+    
+    // Scroll para a tabela
+    setTimeout(() => {
+        const tableContainer = document.querySelector('.table-container');
+        tableContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 800);
+    
+    showNotification(`🎯 Navegando para o Concurso ${numeroConcurso}`, 'info');
+}
+
+function destacarLinhaConcurso(numeroConcurso) {
+    // Remover destaque anterior
+    document.querySelectorAll('.linha-destacada').forEach(linha => {
+        linha.classList.remove('linha-destacada');
+    });
+    
+    // Encontrar e destacar a linha do concurso
+    const rows = document.querySelectorAll('#federalResults tbody tr');
+    rows.forEach(row => {
+        const concursoCell = row.cells[0];
+        if (concursoCell && parseInt(concursoCell.textContent) === parseInt(numeroConcurso)) {
+            row.classList.add('linha-destacada');
+            
+            // Remover destaque após 5 segundos
+            setTimeout(() => {
+                row.classList.remove('linha-destacada');
+            }, 5000);
+        }
+    });
+}
 
 // =================== FUNÇÕES DE CONTROLE DE AJUSTES ===================
 
@@ -1506,6 +2486,11 @@ function updateTable() {
             calculateAdjustments(result);
         });
         renderCurrentPage();
+        
+        // Limpar conferência anterior quando ajustes mudam
+        const conferenciaSection = document.getElementById('conferenciaSection');
+        conferenciaSection.style.display = 'none';
+        bilhetesRepetidos.clear();
     }
 }
 
@@ -1703,6 +2688,10 @@ async function fetchAllFederalResults() {
     allResults = [];
     currentPage = 1;
 
+    // Esconder seção de conferência ao recarregar
+    const conferenciaSection = document.getElementById('conferenciaSection');
+    conferenciaSection.style.display = 'none';
+
     // Atualizar estado dos botões
     updateButtonStates();
 
@@ -1775,6 +2764,10 @@ function showConcursoInfo(results) {
                 🎯 Último concurso: <strong>${ultimoConcurso.concurso}</strong> (${ultimoConcurso.data}) 
                 <br /><br />
                 Bilhetes: ${ultimoConcurso.bilhetes.map(bilhete => `<span class="bilhete-ultimo">${bilhete}</span>`).join(' ')}
+                <br /><br />
+                <div style="background: linear-gradient(45deg, #e74c3c, #c0392b); color: white; padding: 10px; border-radius: 8px; margin-top: 10px;">
+                    <i class="fas fa-search"></i> <strong>Use "Conferir Repetições" para verificar se algum bilhete ajustado já foi sorteado!</strong>
+                </div>
             </div>
         `;
         
@@ -2273,17 +3266,34 @@ function renderCurrentPage() {
     currentResults.forEach(result => {
         const row = tableBody.insertRow();
         
-        const formatBilhetes = (bilhetes) => {
+        // Verificar se tem repetições para aplicar classe CSS
+        if (result.temRepeticao) {
+            row.classList.add('bilhete-repetido');
+        }
+        
+        const formatBilhetes = (bilhetes, ajusteKey = null) => {
             const premios = ['1º', '2º', '3º', '4º', '5º'];
             return `
                 <div class="premio-grupo">
                     <div class="bilhetes-linha">
-                        ${bilhetes.map((bilhete, index) => 
-                            `<div>
+                        ${bilhetes.map((bilhete, index) => {
+                            let bilheteClass = 'bilhete';
+                            let title = '';
+                            
+                            // Verificar se este bilhete específico está repetido
+                            if (ajusteKey && result.ajustesRepetidos && result.ajustesRepetidos[ajusteKey]) {
+                                const bilheteRepetido = result.ajustesRepetidos[ajusteKey].find(rep => rep.posicao === (index + 1));
+                                if (bilheteRepetido) {
+                                    bilheteClass += ' repetido';
+                                    title = `Já sorteado no ${bilheteRepetido.premioOriginal} Prêmio do Concurso ${bilheteRepetido.concursoOriginal}`;
+                                }
+                            }
+                            
+                            return `<div>
                                 <div class="premio-label">${premios[index]} Prêmio</div>
-                                <span class="bilhete">${bilhete}</span>
-                            </div>`
-                        ).join('')}
+                                <span class="${bilheteClass}" title="${title}">${bilhete}</span>
+                            </div>`;
+                        }).join('')}
                     </div>
                 </div>
             `;
@@ -2298,8 +3308,19 @@ function renderCurrentPage() {
         // Adicionar colunas de ajustes baseadas na quantidade selecionada
         for (let i = 1; i <= quantidade; i++) {
             const ajuste = result[`ajuste${i}`];
+            const ajusteKey = `ajuste${i}`;
+            
+            let cellClass = '';
+            let cellTitle = '';
+            
+            if (result.ajustesRepetidos && result.ajustesRepetidos[ajusteKey]) {
+                cellClass = 'ajuste-repetido';
+                const repetidas = result.ajustesRepetidos[ajusteKey];
+                cellTitle = repetidas.map(rep => `${rep.premio} Prêmio: ${rep.bilhete} já sorteado no ${rep.premioOriginal} Prêmio do Concurso ${rep.concursoOriginal}`).join(' | ');
+            }
+            
             if (ajuste) {
-                htmlRow += `<td>${formatBilhetes(ajuste)}</td>`;
+                htmlRow += `<td class="${cellClass}" title="${cellTitle}">${formatBilhetes(ajuste, ajusteKey)}</td>`;
             } else {
                 htmlRow += `<td>-</td>`;
             }
@@ -2533,9 +3554,21 @@ document.addEventListener('keydown', (event) => {
     }
 });
 
+// Adicionar funcionalidade de busca com Enter
+document.addEventListener('DOMContentLoaded', function() {
+    const campoBusca = document.getElementById('campoBusca');
+    if (campoBusca) {
+        campoBusca.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                buscarRepeticoes();
+            }
+        });
+    }
+});
+
 // Inicialização
 window.addEventListener('load', () => {
-    console.log('Aplicação da Loteria Federal carregada com ajustes personalizáveis.');
+    console.log('Aplicação da Loteria Federal carregada com ajustes personalizáveis e conferência inteligente.');
     
     // Configurar estado inicial dos controles
     updateAjustes();
